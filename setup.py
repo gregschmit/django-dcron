@@ -17,7 +17,7 @@ setup(
     package_data={'dcron': ['VERSION_STAMP']},
     install_requires=['Django>=2', 'croniter'],
     description='A re-useable Django app for scheduling jobs dynamically.',
-    long_description='`dcron` (dynamic cron) is a re-useable Django app that allows you to schedule jobs dynamically. You can assign a schedule for a Model class, or you can schedule jobs for each Model instance. Read the documentation at https://django-dcron.readthedocs.io/.
+    long_description='`dcron` (dynamic cron) is a re-useable Django app that allows you to schedule jobs dynamically. You can assign a schedule for a Model class, or you can schedule jobs for each Model instance. Read the documentation at https://django-dcron.readthedocs.io/.',
     url='https://github.com/gregschmit/django-dcron',
     author='Gregory N. Schmit',
     author_email='gschmi4@uic.edu',
