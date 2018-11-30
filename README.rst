@@ -10,7 +10,8 @@
 
 Documentation: https://django-dcron.readthedocs.io
 
-:code:`dcron` is a Django app for dynamically building scheduled jobs based on models or their instances.
+:code:`dcron` is a Django app for dynamically building scheduled jobs based on
+models or their instances.
 
 How to Use
 ----------
@@ -22,11 +23,21 @@ There are two use cases:
 1. A job needs to run regularly for a model class.
 2. Each instance (object) in a model class may need it's own job schedule.
 
-For case #1, on the model class, include the **classmethods** :code:`dcron_class_pattern` and :code:`dcron_class_enable`. While :code:`dcron_class_enable` is truthy, the scheduler will automatically register a cronjob based on the pattern(s) (semicolon-delimited) in :code:`dcron_class_pattern`.
+For case #1, on the model class, include the **classmethods**
+:code:`dcron_class_pattern` and :code:`dcron_class_enable`. While
+:code:`dcron_class_enable` is truthy, the scheduler will automatically register
+a cronjob based on the pattern(s) (semicolon-delimited) in
+:code:`dcron_class_pattern`.
 
-For case #2 (the more common case), include two **properties** (usually as :code:`CharField` and :code:`BooleanField`, respectively): :code:`dcron_pattern` and :code:`dcron_enable`. For each object/instance, while :code:`dcron_enable` is truthy, the scheduler will automatically register a cronjob based on the pattern(s) (semicolon-delimited) in :code:`dcron_pattern`.
+For case #2 (the more common case), include two **properties** (usually as
+:code:`CharField` and :code:`BooleanField`, respectively): :code:`dcron_pattern`
+and :code:`dcron_enable`. For each object/instance, while :code:`dcron_enable`
+is truthy, the scheduler will automatically register a cronjob based on the
+pattern(s) (semicolon-delimited) in :code:`dcron_pattern`.
 
-The scheduled models should have a :code:`dcron_run`/:code:`dcron_class_run` method; if none exists then :code:`dcron` will fall-back and attempt to execute the :code:`run` method.
+The scheduled models should have a :code:`dcron_run`/:code:`dcron_class_run`
+method; if none exists then :code:`dcron` will fall-back and attempt to execute
+the :code:`run` method.
 
 Patterns should be a semicolon-delimited list of cronjob patterns, such as:
 
@@ -38,13 +49,18 @@ Patterns should be a semicolon-delimited list of cronjob patterns, such as:
 
     */2 * * * *
 
-You do need to call the management command :code:`dcron_run` often enough for the jobs to be run. An entry similar to this in the system :code:`/etc/crontab` is appropriate:
+You do need to call the management command :code:`dcron_run` often enough for
+the jobs to be run. An entry similar to this in the system :code:`/etc/crontab`
+is appropriate:
 
 .. code-block:: shell
 
     * * * * *   root   /path/to/python3 /path/to/manage.py dcron_run
 
-This app comes with two models that provide generic scheduling for running shell commands and management commands using the :code:`dcron` API. Check out the :code:`ScheduledShellCommand` and the :code:`ScheduledManagementCommand` models to test out this functionality.
+This app comes with two models that provide generic scheduling for running shell
+commands and management commands using the :code:`dcron` API. Check out the
+:code:`ScheduledShellCommand` and the :code:`ScheduledManagementCommand` models
+to test out this functionality.
 
 Examples
 --------
@@ -52,7 +68,8 @@ Examples
 Example 1
 ~~~~~~~~~
 
-Suppose you want to perform some operation on all of your users every night at 9pm. Add this to your :code:`User` model:
+Suppose you want to perform some operation on all of your users every night at
+9pm. Add this to your :code:`User` model:
 
 .. code-block:: python
 
@@ -71,7 +88,11 @@ Suppose you want to perform some operation on all of your users every night at 9
 Example 2
 ~~~~~~~~~
 
-Suppose you want your users to be able to schedule when their computers are rebooted, since some of them use them mostly in the evening, and some use them mostly during the day. Note that this is different from our first case since each user must be able to configure their own schedule (so one job per each entry in the database). You could add this to your :code:`User` model:
+Suppose you want your users to be able to schedule when their computers are
+rebooted, since some of them use them mostly in the evening, and some use them
+mostly during the day. Note that this is different from our first case since
+each user must be able to configure their own schedule (so one job per each
+entry in the database). You could add this to your :code:`User` model:
 
 .. code-block:: python
 
@@ -107,7 +128,9 @@ First clone, the repository into a location of your choosing:
 
     $ git clone https://github.com/gregschmit/django-dcron
 
-Then you can go into the :code:`django-dcron` directory and do the initial migrations and run the server (you may need to type :code:`python3` rather than :code:`python`):
+Then you can go into the :code:`django-dcron` directory and do the initial
+migrations and run the server (you may need to type :code:`python3` rather than
+:code:`python`):
 
 .. code-block:: shell
 
