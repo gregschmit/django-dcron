@@ -13,6 +13,18 @@ Documentation: https://django-dcron.readthedocs.io
 :code:`dcron` is a Django app for dynamically building scheduled jobs based on
 models or their instances.
 
+**The Problem**: Existing Django cron-related apps are not dynamic. To make a
+cronjob, the programmer has to create an entry in :code:`settings.py`, or has to
+write a function or class. This means that changes in the schedule reuqire
+intervention by a developer. There may be cases where you want non-developers to
+affect when jobs are scheduled (e.g., by modifying the database via the web
+application).
+
+**The Solution**: This app allows for the creation of dynamically scheduled
+jobs, based on model objects saved in the database. This allows you to have
+users affect scheduled jobs by interacting with the web interface and creating
+or modifying objects in the database.
+
 How to Use
 ----------
 

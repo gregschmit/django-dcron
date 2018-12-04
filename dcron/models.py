@@ -21,7 +21,7 @@ def pattern_validator(pattern):
         if not croniter.is_valid(p):
             valid = False
             return (False, None)
-        c = croniter(pattern.strip(), timezone.now())
+        c = croniter(p.strip(), timezone.localtime(timezone.now()))
         nexts.append(c.get_next(datetime))
     nexts.sort()
     return (valid, nexts[0])
@@ -110,9 +110,11 @@ class DynamicCronJob(models.Model):
 
     def run(self):
         """
-        If both active and resolved_enable are truthy, update the next_run and
-        execute the model's :code:`dcron_run` or :code:`dcron_class_run` method.
+        If both active and resolved_enable are truthy, and we are due for the
+        next run, update the next_run and execute the model's :code:`dcron_run`
+        or :code:`dcron_class_run` method.
         """
+        if not self.is_due(): return
         if self.instance_id == 0:
             obj = self.instance_type.model_class()
         else:
