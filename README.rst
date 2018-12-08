@@ -9,7 +9,9 @@
     :alt: Documentation Status
 
 Documentation: https://django-dcron.readthedocs.io
+
 Source: https://github.com/gregschmit/django-dcron
+
 PyPI: https://pypi.org/project/django-dcron/
 
 :code:`dcron` is a Django app for dynamically building scheduled jobs based on
