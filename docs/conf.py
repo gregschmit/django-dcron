@@ -31,9 +31,9 @@ copyright = '2018, Gregory N. Schmit'
 author = 'Gregory N. Schmit'
 
 # The short X.Y version
-version = ''
+version = ver.get_version()
 # The full version, including alpha/beta/rc tags
-release = ver.get_version()
+release = version
 
 
 # -- General configuration ---------------------------------------------------
