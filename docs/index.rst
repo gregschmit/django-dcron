@@ -6,6 +6,8 @@
 Welcome to django-dcron's documentation!
 ========================================
 
+Version: |version|
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
