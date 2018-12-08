@@ -14,5 +14,5 @@ class Command(BaseCommand):
         :code:`DynamicCronJob`.
         """
         models.DynamicCronJob.discover()
-        for i in models.DynamicCronJob.objects.filter(active=True):
+        for i in models.DynamicCronJob.objects.filter(enabled=True):
             i.run()

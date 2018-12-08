@@ -3,12 +3,12 @@ from . import models
 
 
 class DynamicCronJobAdmin(admin.ModelAdmin):
-    list_filter = ('active', 'instance_type', 'instance_id')
-    list_display = ('id',) + list_filter + ('next_run', 'resolved_pattern', 'last_resolved')
+    list_filter = ('enabled', 'instance_type__app_label')
+    list_display = ('__str__', 'enabled', 'next_run', 'resolved_pattern', 'last_resolved')
     search_fields = list_display
-    readonly_fields = ('id', 'instance_type', 'instance_id', 'next_run', 'resolved_pattern', 'last_resolved')
+    readonly_fields = ('__str__', 'next_run', 'resolved_pattern', 'last_resolved')
     fieldsets = (
-            (None, { 'fields': ('active',)}),
+            (None, { 'fields': ('enabled',)}),
             ('Readonly', { 'fields':(*readonly_fields,)}),
             )
 
@@ -26,17 +26,17 @@ class LogAdmin(admin.ModelAdmin):
 
 
 class ScheduledManagementCommandAdmin(admin.ModelAdmin):
-    list_filter = ('dcron_pattern', 'dcron_enable')
+    list_filter = ('enabled', 'cron_schedule')
     list_display = ('id',) + list_filter + ('management_command',)
     search_fields = list_display
-    fields = ('dcron_pattern', 'dcron_enable', 'management_command',)
+    fields = ('enabled', 'cron_schedule', 'management_command',)
 
 
 class ScheduledShellCommandAdmin(admin.ModelAdmin):
-    list_filter = ('dcron_pattern', 'dcron_enable')
+    list_filter = ('enabled', 'cron_schedule')
     list_display = ('id',) + list_filter + ('shell_command',)
     search_fields = list_display
-    fields = ('dcron_pattern', 'dcron_enable', 'shell_command',)
+    fields = ('enabled', 'cron_schedule', 'shell_command',)
 
 
 admin.site.register(models.DynamicCronJob, DynamicCronJobAdmin)

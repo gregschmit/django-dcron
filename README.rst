@@ -15,7 +15,7 @@ models or their instances.
 
 **The Problem**: Existing Django cron-related apps are not dynamic. To make a
 cronjob, the programmer has to create an entry in :code:`settings.py`, or has to
-write a function or class. This means that changes in the schedule reuqire
+write a function or class. This means that changes in the schedule require
 intervention by a developer. There may be cases where you want non-developers to
 affect when jobs are scheduled (e.g., by modifying the database via the web
 application).
@@ -35,17 +35,15 @@ There are two use cases:
 1. A job needs to run regularly for a model class.
 2. Each instance (object) in a model class may need it's own job schedule.
 
-For case #1, on the model class, include the **classmethods**
-:code:`dcron_class_pattern` and :code:`dcron_class_enable`. While
-:code:`dcron_class_enable` is truthy, the scheduler will automatically register
-a cronjob based on the pattern(s) (semicolon-delimited) in
-:code:`dcron_class_pattern`.
+For case #1, on the model class, include the **classmethod**
+:code:`dcron_class_pattern`. The scheduler will automatically register a cronjob
+based on the pattern(s) (semicolon-delimited) in :code:`dcron_class_pattern`. An
+empty string is equivalent to the cronjob being disabled.
 
-For case #2 (the more common case), include two **properties** (usually as
-:code:`CharField` and :code:`BooleanField`, respectively): :code:`dcron_pattern`
-and :code:`dcron_enable`. For each object/instance, while :code:`dcron_enable`
-is truthy, the scheduler will automatically register a cronjob based on the
-pattern(s) (semicolon-delimited) in :code:`dcron_pattern`.
+For case #2 (the more common case), include a property or method
+:code:`dcron_pattern`. For each object/instance, the scheduler will
+automatically register a cronjob based on the pattern(s) (semicolon-delimited)
+in :code:`dcron_pattern`.
 
 The scheduled models should have a :code:`dcron_run`/:code:`dcron_class_run`
 method; if none exists then :code:`dcron` will fall-back and attempt to execute
@@ -85,13 +83,7 @@ Suppose you want to perform some operation on all of your users every night at
 
 .. code-block:: python
 
-    @classmethod
-    def dcron_class_pattern(cls):
-        return '* 21 * * *'
-
-    @classmethod
-    def dcron_class_enable(cls):
-        return True
+    dcron_class_pattern = '* 21 * * *'
 
     @classmethod
     def dcron_class_run(cls):
@@ -108,16 +100,13 @@ entry in the database). You could add this to your :code:`User` model:
 
 .. code-block:: python
 
+    enable_daily_reboot = models.BooleanField(default=True)
     hour_choices = [(x, str(x)) for x in range(24)]
     reboot_hour = models.IntegerField(default=0, choices=hour_choices)
     
-    @property
     def dcron_pattern(self):
+        if not self.enable_daily_reboot: return ''
         return '* {0} * * *'.format(self.reboot_hour)
-
-    @property
-    def dcron_enable(self):
-        return True
 
     def dcron_run(self):
         self.reboot_the_computer()
