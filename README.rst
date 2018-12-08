@@ -9,6 +9,8 @@
     :alt: Documentation Status
 
 Documentation: https://django-dcron.readthedocs.io
+Source: https://github.com/gregschmit/django-dcron
+PyPI: https://pypi.org/project/django-dcron/
 
 :code:`dcron` is a Django app for dynamically building scheduled jobs based on
 models or their instances.
@@ -27,6 +29,12 @@ or modifying objects in the database.
 
 How to Use
 ----------
+
+To install:
+
+.. code-block:: shell
+
+    $ pip install django-dcron
 
 Load :code:`dcron` into your :code:`INSTALLED_APPS`
 

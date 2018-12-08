@@ -21,6 +21,7 @@ setup(
     url='https://github.com/gregschmit/django-dcron',
     author='Gregory N. Schmit',
     author_email='gschmi4@uic.edu',
+    license='MIT',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
