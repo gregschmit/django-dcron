@@ -175,6 +175,9 @@ class Log(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = 'Log'
+
 
 class ScheduledManagementCommand(models.Model):
     """
