@@ -4,4 +4,4 @@ from .version import get_version
 
 class CustomConfig(AppConfig):
     name = 'dcron'
-    verbose_name = "dcron - v" + get_version()
+    verbose_name = "dCron - v" + get_version()

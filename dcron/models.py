@@ -40,6 +40,9 @@ class DynamicCronJob(models.Model):
     resolved_pattern = models.CharField(max_length=255, blank=True, editable=False)
     last_resolved = models.DateTimeField(blank=True, null=True, editable=False)
 
+    class Meta:
+        verbose_name = 'Dynamic Cron Job'
+
     def __str__(self):
         if self.instance_id:
             return self.instance_model + " :: {0}".format(self.instance_id)
@@ -182,6 +185,9 @@ class ScheduledManagementCommand(models.Model):
     cron_schedule = models.CharField(default='* * * * *', max_length=255, blank=True)
     management_command = models.CharField(default='test', max_length=255)
 
+    class Meta:
+        verbose_name = 'Scheduled Management Command'
+
     def dcron_pattern(self):
         if not self.enabled: return ''
         return self.cron_schedule
@@ -198,6 +204,9 @@ class ScheduledShellCommand(models.Model):
     enabled = models.BooleanField(default=True)
     cron_schedule = models.CharField(default='* * * * *', max_length=255, blank=True)
     shell_command = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Scheduled Shell Command'
 
     def dcron_pattern(self):
         if not self.enabled: return ''
